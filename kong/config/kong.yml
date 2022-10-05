@@ -7,7 +7,7 @@ services:
   routes:
   - name: echo
     paths:
-    - /echo
+    - /
 
 consumers:
 - username: user
@@ -30,7 +30,7 @@ plugins:
 
 - name: http-log
   config: 
-    http_endpoint: http://127.0.0.1:8080/ #http://172.29.241.32:8080/
+    http_endpoint: http://127.0.0.1:1337/ #http://172.29.241.32:8080/
     method: POST
     timeout: 1000
     keepalive: 1000
