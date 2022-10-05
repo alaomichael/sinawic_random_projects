@@ -3,34 +3,35 @@ _format_version: "2.1"
 services:
 
 - name: echo-server
-  url: http://127.0.0.1:1337 # 172.29.241.32:6969
+  url: http://192.168.0.105:1337  #172.29.241.32:6969
   routes:
   - name: echo
     paths:
-    - /
+    - /echo
 
-consumers:
-- username: user
+# consumers:
+# - username: user
 
-basicauth_credentials:
-- consumer: user
-  username: Aladdin
-  password: OpenSesame
+# basicauth_credentials:
+# - consumer: user
+#   username: Aladdin
+#   password: OpenSesame
 
-keyauth_credentials:
-- consumer: user
-  key: abc
+# keyauth_credentials:
+# - consumer: user
+#   key: abc
 
-acls:
-- consumer: user
-  group: group1
+# acls:
+# - consumer: user
+#   group: group1
 
 # plugins section
 plugins:
 
 - name: http-log
   config: 
-    http_endpoint: http://127.0.0.1:1337/ #http://172.29.241.32:8080/
+    http_endpoint: http://192.168.0.105:1337/
+     # http://172.29.64.1:1337 # http://127.0.0.1:1337/ #http://172.29.241.32:8080/
     method: POST
     timeout: 1000
     keepalive: 1000
@@ -105,7 +106,7 @@ plugins:
 - name: cors
   config:
     origins:
-    - '*'
+    - '*' # http://info.cern.ch # 
     methods:
     - GET
     - POST
@@ -138,9 +139,9 @@ plugins:
 #    redis_host: 172.27.59.36
 #    redis_password: example
 
-- name: ip-restriction
-  config: 
-    deny:
-    - 172.28.64.0/24
-    status: 401
-    message: cannot grant access
+# - name: ip-restriction
+#   config: 
+#     deny:
+#     - 172.28.64.0/24      192.168.0.105/24
+#     status: 401
+#     message: cannot grant access
