@@ -14,9 +14,9 @@ services:
 upstreams:
 - name: example_upstream
   targets:
-    - target: 172.29.242.56:6969
+    - target: 127.0.0.1:1337#172.29.242.56:6969
       weight: 100
-    - target: 172.29.242.56:7070
+    - target: 127.0.0.1:7070#172.29.242.56:7070
       weight: 100
 
 plugins:
