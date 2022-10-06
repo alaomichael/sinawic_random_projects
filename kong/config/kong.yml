@@ -3,7 +3,7 @@ _format_version: "2.1"
 services:
 
 - name: echo-server
-  url: http://192.168.0.105:1337  #172.29.241.32:6969
+  url: http://192.168.0.106:1337  #172.29.241.32:6969
   routes:
   - name: echo
     paths:
@@ -30,7 +30,7 @@ plugins:
 
 - name: http-log
   config: 
-    http_endpoint: http://192.168.0.105:1337/
+    http_endpoint: http://192.168.0.106:1337/
      # http://172.29.64.1:1337 # http://127.0.0.1:1337/ #http://172.29.241.32:8080/
     method: POST
     timeout: 1000
@@ -127,7 +127,7 @@ plugins:
 
 - name: rate-limiting
   config: 
-#    second: 5
+    # second: 5
     hour: 100
     policy: local
     fault_tolerant: true
@@ -135,13 +135,15 @@ plugins:
     redis_ssl: false
     redis_ssl_verify: false
 # comment these if you don't want to store rate limiting data in redis
-#    policy: redis
-#    redis_host: 192.168.0.105 # 172.27.59.36
-#    redis_password: example
+    policy: redis
+    redis_host: 192.168.0.106 # 172.27.59.36
+    redis_password: example
 
-# - name: ip-restriction
-#   config: 
-#     deny:
-#     - 172.28.64.0/24      192.168.0.105/24
+- name: ip-restriction
+  config:
+#     allow:
+#     - 192.168.0.106/24  # /24 represent range from 0-255
+    deny:
+    - 192.168.0.106/24 # /24 represent range from 0-255
 #     status: 401
 #     message: cannot grant access
