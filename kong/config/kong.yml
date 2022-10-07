@@ -9,21 +9,21 @@ services:
     paths:
     - /echo
 
-# consumers:
-# - username: user
+consumers:
+- username: user
 
-# basicauth_credentials:
-# - consumer: user
-#   username: Aladdin
-#   password: OpenSesame
+basicauth_credentials:
+- consumer: user
+  username: Michael
+  password: OpenGateway
 
-# keyauth_credentials:
-# - consumer: user
-#   key: abc
+keyauth_credentials:
+- consumer: user
+  key: abc
 
-# acls:
-# - consumer: user
-#   group: group1
+acls:
+- consumer: user
+  group: group1
 
 # plugins section
 plugins:
@@ -46,22 +46,25 @@ plugins:
 - name: request-size-limiting
   config: 
     allowed_payload_size: 1
-    size_unit: kilobytes
+    size_unit: kilobytes # megabytes
     require_content_length: false
 
 - name: request-termination
   config: 
     status_code: 403
-#    message: So long and thanks for all the fish!
-    body: "{a:b}"
-    content_type: "application/json; charset=utf-8"
-    trigger: "q"
+    message: So long and thanks for all the fish!
+    # body: "{ a:b }"
+    # content_type: "application/json; charset=utf-8"
+    trigger: "q" # this will block every request with 'q' in the body or queryParameters
   enabled: false
 
 - name: acl
   config: 
     allow:
     - group1
+    - group2
+    # deny:
+    # - group1
     hide_groups_header: true
   enabled: false
 
@@ -92,15 +95,20 @@ plugins:
     - text/plain
     - application/json
     - application/json; charset=utf-8
-    cache_ttl: 300
+    cache_ttl: 300 # in seconds
     strategy: memory
   enabled: false
 
 - name: bot-detection
   config:
-    deny:
-    - "(C|c)hrome"
+    allow:
+    - "(C|c)hrome"  # (C|c) means Uppercase "C" or lowercase "c"
     - "curl"
+    - "(M|m)ozilla"
+    # deny:
+    # - "(C|c)hrome"  # (C|c) means Uppercase "C" or lowercase "c"
+    # - "curl"
+    # - "(M|m)ozilla"
   enabled: false
 
 - name: cors
@@ -136,14 +144,17 @@ plugins:
     redis_ssl_verify: false
 # comment these if you don't want to store rate limiting data in redis
     policy: redis
-    redis_host: 192.168.0.106 # 172.27.59.36
+    redis_host: 127.0.0.1 # 172.21.0.1 # 127.0.0.1 # 192.168.0.106 # 172.27.59.36
     redis_password: example
 
 - name: ip-restriction
   config:
-#     allow:
-#     - 192.168.0.106/24  # /24 represent range from 0-255
     deny:
-    - 192.168.0.106/24 # /24 represent range from 0-255
+    # - 192.168.0.0/28 # /24 represent range from 0-255
+    # - 172.21.0.1/28 # my office ip address
+    allow:
+#     - 192.168.0.106/24  # /24 represent range from 0-255
+      - 172.21.0.1/28 # my office ip address
 #     status: 401
-#     message: cannot grant access
+    message: cannot grant access
+  enabled: false
