@@ -17,7 +17,7 @@ services:
       - KONG_LOG_LEVEL=debug
       - KONG_PLUGINS=bundled
     ports:
-      - "8000:8000/tcp" # kong server port : my services port
+      - "8000:8000/tcp" # kong server port : my container port
       - "127.0.0.1:7990:8001/tcp"
       - "8001:8001/tcp"
       - "8443:8443/tcp"

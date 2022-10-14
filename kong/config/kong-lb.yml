@@ -15,9 +15,9 @@ upstreams:
 - name: example_upstream
   targets:
     - target: 192.168.0.106:1337 # 127.0.0.1:1337  #172.29.242.56:6969
-      weight: 100
+      weight: 100 # get more request base on the weight value, higher value more request  
     - target:  192.168.0.106:7070 # 127.0.0.1:7070  #172.29.242.56:7070
-      weight: 100
+      weight: 50 # get more request base on the weight value, higher value more request  
 
 plugins:
 - name: rate-limiting

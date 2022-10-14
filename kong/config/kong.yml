@@ -45,7 +45,7 @@ plugins:
 
 - name: request-size-limiting
   config: 
-    allowed_payload_size: 1
+    allowed_payload_size: 24
     size_unit: kilobytes # megabytes
     require_content_length: false
 
